@@ -43,7 +43,7 @@ docker build -f dockerfile.ubuntu --build-arg VERSION=0.1.1 -t static-jinja-plus
 ## run example
 
 ```
-docker run --rm -v C:\Users\e13\Desktop\dvmn\Docker\test2\templates_example:/app/templates_example -v C:\Users\e13\Desktop\dvmn\Docker\test2\out:/app/built/site -it --rm staticjinjaplus-ubuntu:0.1.1
+docker run --rm -v C:\Users\e13\Desktop\dvmn\Docker\test2\templates_example:/app/templates_example -v C:\Users\e13\Desktop\dvmn\Docker\test2\out:/app/built/site -it static-jinja-plus-ubuntu:0.1.1
 ```
 
 or change docker compose file and use it like:
