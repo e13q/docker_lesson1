@@ -1,30 +1,44 @@
+Контеиниризация [StaticJinjaPlus](https://github.com/MrDave/StaticJinjaPlus/tree/main).
+
 ## building commands for python-slim base
 
 latest version:
 
-```docker build -f dockerfile.python-slim --build-arg VERSION=latest -t static-jinja-plus-slim:latest . ```
+```
+docker build -f dockerfile.python-slim --build-arg VERSION=latest -t static-jinja-plus-slim:latest .
+ ```
 
 version 0.1.0:
 
-```docker build -f dockerfile.python-slim --build-arg VERSION=0.1.0 -t static-jinja-plus-slim:0.1.0 . ```
+```
+docker build -f dockerfile.python-slim --build-arg VERSION=0.1.0 -t static-jinja-plus-slim:0.1.0 . 
+```
 
 version 0.1.1:
 
-```docker build -f dockerfile.python-slim --build-arg VERSION=0.1.1 -t static-jinja-plus-slim:0.1.1 . ```
+```
+docker build -f dockerfile.python-slim --build-arg VERSION=0.1.1 -t static-jinja-plus-slim:0.1.1 .
+```
 
 ## building commands for ubuntu base
 
 latest version:
 
-```docker build -f dockerfile.ubuntu --build-arg VERSION=latest -t static-jinja-plus-ubuntu:latest . ```
+```
+docker build -f dockerfile.ubuntu --build-arg VERSION=latest -t static-jinja-plus-ubuntu:latest .
+```
 
 version 0.1.0:
 
-```docker build -f dockerfile.ubuntu --build-arg VERSION=0.1.0 -t static-jinja-plus-ubuntu:0.1.0 . ```
+```
+docker build -f dockerfile.ubuntu --build-arg VERSION=0.1.0 -t static-jinja-plus-ubuntu:0.1.0 .
+ ```
 
 version 0.1.1:
 
-```docker build -f dockerfile.ubuntu --build-arg VERSION=0.1.1 -t static-jinja-plus-ubuntu:0.1.1 . ```
+```
+docker build -f dockerfile.ubuntu --build-arg VERSION=0.1.1 -t static-jinja-plus-ubuntu:0.1.1 .
+ ```
 
 ## run example
 
