@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  static-jinja-plus:
+    image: static-jinja-plus
+    volumes:
+      - C:\Users\e13\Desktop\dvmn\Docker\test2\templates_example:/app/templates_example
+      - C:\Users\e13\Desktop\dvmn\Docker\test2\out:/app/built/site
+    command: [".venv/bin/python", "main.py", "--srcpath", "templates_example", "--outpath", "./built/site"]
+    restart: "no"
+    container_name: static-jinja-plus-container

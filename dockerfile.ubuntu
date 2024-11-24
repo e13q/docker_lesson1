@@ -1,0 +1,26 @@
+FROM ubuntu:20.04
+ARG VERSION=latest
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get update && apt-get install -y \
+    python3.10 \
+    python3.10-venv \
+    python3.10-distutils \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
+WORKDIR /app
+ADD --checksum=sha256:30d9424df1eddb73912b0e2ad5375fa2c876c8e30906bec91952dfb75dcf220b https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/0.1.1.tar.gz /tmp/app-0.1.1.tar.gz
+ADD --checksum=sha256:3555bcfd670e134e8360ad934cb5bad1bbe2a7dad24ba7cafa0a3bb8b23c6444 https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/0.1.0.tar.gz /tmp/app-0.1.0.tar.gz
+ADD --checksum=sha256:aaac015416acb496e91e4082aa0ffc41e42040349d6cfadb1558d2df62d33fa8 https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/main.zip /tmp/app-main.zip
+RUN if [ "$VERSION" = "0.1.1" ]; then \
+        tar xzf /tmp/app-0.1.1.tar.gz --strip-components=1 -C /app && rm /tmp/app-0.1.1.tar.gz; \
+    elif [ "$VERSION" = "0.1.0" ]; then \
+        tar xzf /tmp/app-0.1.0.tar.gz --strip-components=1 -C /app && rm /tmp/app-0.1.0.tar.gz; \
+    elif [ "$VERSION" = "latest" ]; then \
+        unzip /tmp/app-main.zip -d /tmp && mv /tmp/StaticJinjaPlus-main/* /app && rm -rf /tmp/app-main.zip /tmp/StaticJinjaPlus-main; \
+    fi
+RUN python3.10 -m venv .venv
+RUN . .venv/bin/activate && pip install -r requirements.txt
+CMD [".venv/bin/python", "main.py", "--srcpath", "templates_example", "--outpath", "./built/site"]

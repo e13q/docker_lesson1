@@ -1,0 +1,18 @@
+FROM python:3.10-slim
+ARG VERSION=latest
+RUN apt-get update && apt-get install -y \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+ADD --checksum=sha256:30d9424df1eddb73912b0e2ad5375fa2c876c8e30906bec91952dfb75dcf220b https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/0.1.1.tar.gz /tmp/app-0.1.1.tar.gz
+ADD --checksum=sha256:3555bcfd670e134e8360ad934cb5bad1bbe2a7dad24ba7cafa0a3bb8b23c6444 https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/0.1.0.tar.gz /tmp/app-0.1.0.tar.gz
+ADD --checksum=sha256:aaac015416acb496e91e4082aa0ffc41e42040349d6cfadb1558d2df62d33fa8 https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/main.zip /tmp/app-main.zip
+RUN if [ "$VERSION" = "0.1.1" ]; then \
+        tar xzf /tmp/app-0.1.1.tar.gz --strip-components=1 -C /app && rm /tmp/app-0.1.1.tar.gz; \
+    elif [ "$VERSION" = "0.1.0" ]; then \
+        tar xzf /tmp/app-0.1.0.tar.gz --strip-components=1 -C /app && rm /tmp/app-0.1.0.tar.gz; \
+    elif [ "$VERSION" = "latest" ]; then \
+        unzip /tmp/app-main.zip -d /tmp && mv /tmp/StaticJinjaPlus-main/* /app && rm -rf /tmp/app-main.zip /tmp/StaticJinjaPlus-main; \
+    fi
+RUN pip install -r requirements.txt
+CMD ["python", "main.py", "--srcpath", "templates_example", "--outpath", "./built/site"]
